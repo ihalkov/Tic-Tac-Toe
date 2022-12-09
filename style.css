@@ -1,0 +1,50 @@
+/* select all elements */
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Nerko One', cursive;
+    /* background-color: darksalmon; */
+}
+
+/* style for the board */
+/* css grid */
+.container {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-rows: 33.3% 33.3% 33.3%;
+    border: 3px solid #FF4D5E;
+    max-width: 300px;
+    background-color: #FFE480;
+}
+
+.tile {
+    border: 3px solid #FF4D5E;
+    min-width: 100px;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.playerX {
+    color: blue;
+}
+
+.playerO {
+    color: green;
+}
+
+.tie {
+    color: orangered;
+}
+
+h1 {
+    text-align: center;
+}
+
+section {
+    text-align: center;
+}

@@ -1,0 +1,5 @@
+1) bg / en lang
+2) another design themes
+3) scoreboard
+4) saving score in a file
+5) clear the board but save how many times the X won and how many the O won
