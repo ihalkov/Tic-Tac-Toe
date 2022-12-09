@@ -26,7 +26,7 @@ window.onload = function () {
     function onTileClick(event) {
         event.preventDefault();
 
-        console.log(this);
+        // console.log(this);
         // protection from wrong event.target
         if (event.target.tagName == 'DIV') {
             const currTile = event.target;
