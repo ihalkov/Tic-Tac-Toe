@@ -17,6 +17,7 @@ window.onload = function () {
     let currentPlayer = 'X'; // is default for beginning
     let isGameActive = true; // till win or tie
 
+    console.log('stana');
     // how many are on the board
     let countMoves = 0;
 
