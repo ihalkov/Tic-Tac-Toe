@@ -43,8 +43,28 @@
 
 h1 {
     text-align: center;
+    font-size: 50px;
+    margin: auto;
+}
+
+.display {
+    text-align: center;
+    font-size: 30px;
+    margin: auto;
 }
 
 section {
     text-align: center;
+}
+
+button {
+    background-color: #FFE480;
+    color: #FF4D5E;
+    font-size: large;
+    border-radius: 15px 50px 30px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    min-width: 100px;
 }
