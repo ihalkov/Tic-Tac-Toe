@@ -2,8 +2,7 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: 'Nerko One', cursive;
-    /* background-color: darksalmon; */
+    font-family: 'Zen Dots', cursive;
 }
 
 /* style for the board */
@@ -61,10 +60,44 @@ button {
     background-color: #FFE480;
     color: #FF4D5E;
     font-size: large;
-    border-radius: 15px 50px 30px;
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
     text-align: center;
-    min-width: 100px;
+    min-width: 150px;
+    min-height: 20px;
+}
+
+button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+button:active {
+    transform: translateY(4px);
+}
+
+#reset {
+    border-radius: 0px 15px 50px 30px;
+    background-color: greenyellow;
+    color: black;
+    border: black solid;
+}
+
+
+#restart {
+    border-radius: 15px 0px 30px 50px;
+    background-color: red;
+    color: black;
+    border:black solid;
+}
+
+.hide {
+    display: none;
+}
+
+body {
+    background-color:white;
+    color:black;
 }

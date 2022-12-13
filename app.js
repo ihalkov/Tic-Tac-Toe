@@ -4,9 +4,12 @@ window.onload = function () {
     createDivElements(container);
 
     const tiles = Array.from(document.querySelectorAll('.tile'));
-    const playerDisplay = document.querySelector('.display-player');
+    const displayCurrentPlayer = document.querySelector('.current-player');
     const resetButton = document.querySelector('#reset');
-    const announcer = document.querySelector('.announcer');
+    const restartButton = document.querySelector('#restart');
+   
+    const playerInfo = document.querySelector('#playerInfo');
+    const displayWinner = document.querySelector('#displayWinner');
     
     // game control
     let board = [
@@ -16,19 +19,19 @@ window.onload = function () {
     let currentPlayer = 'X'; // is default for beginning
     let isGameActive = true; // till win or tie
 
-    // how many are on the board
     let countMoves = 0;
     let xWon = 0;
     let oWon = 0;
     let tie = 0;
 
-    // addEventListener on the container
     container.addEventListener('click', onTileClick);
+
+    resetButton.addEventListener('click', onReset);
+    restartButton.addEventListener('click', onRestart);
 
     function onTileClick(event) {
         event.preventDefault();
 
-        // console.log(this);
         // protection from wrong event.target
         if (event.target.tagName == 'DIV') {
             const currTile = event.target;
@@ -44,11 +47,11 @@ window.onload = function () {
                 countMoves += 1;
 
                 if (countMoves >= 5) {
-                    isGameActive = checkForWin(board, announcer, currentPlayer)
+                    isGameActive = checkForWin(board);
                 }
 
                 if (isGameActive) {
-                    currentPlayer = changePlayer(playerDisplay, currentPlayer);
+                    currentPlayer = changePlayer(displayCurrentPlayer, currentPlayer);
                 }
             }
 
@@ -56,10 +59,7 @@ window.onload = function () {
 
     }
 
-    resetButton.addEventListener('click', onReset);
-
     function onReset() {
-        announcer.textContent = '';
         currentPlayer = 'X';
         isGameActive = true;
 
@@ -75,17 +75,36 @@ window.onload = function () {
             el.classList.remove('tie');
         });
 
-        announcer.textContent = '';
-        announcer.classList.remove('playerX');
-        announcer.classList.remove('playerO');
-        announcer.classList.remove('tie');
+        displayCurrentPlayer.textContent = 'X';
+        displayCurrentPlayer.classList.remove('playerO');
+        displayCurrentPlayer.classList.remove('tie');
+        displayCurrentPlayer.classList.add('playerX');
 
-        playerDisplay.textContent = 'X';
-        playerDisplay.classList.remove('playerO');
-        playerDisplay.classList.add('playerX');
+        playerInfo.classList.remove('playerO');
+        playerInfo.classList.remove('playerX');
+        playerInfo.classList.remove('tie');
+
+        displayWinner.classList.add('hide');
+        displayWinner.classList.remove('playerO');
+        displayWinner.classList.remove('playerX');
+        displayWinner.classList.remove('tie');
+        
+        playerInfo.innerHTML = `Player: <span class="current-player playerX">X</span>'s turn`;
+        playerInfo.classList.remove('hide');
     }
 
-    function checkForWin(board, announcer, currentPlayer) {
+    function onRestart() {
+        onReset();
+        xWon = 0;
+        oWon = 0;
+        tie = 0;
+
+        document.querySelector('#xWon').textContent = 'X = 0';
+        document.querySelector('#oWon').textContent = 'O = 0';
+        document.querySelector('#tie').textContent = 'TIE = 0';
+    }
+
+    function checkForWin(board) {
         let isWin = false;
         let winningPlayer = '';
     
@@ -143,20 +162,33 @@ window.onload = function () {
             }
             
         }
-    
+
+        
         if (isWin) {
             let key = winningPlayer.toLowerCase();
             let winner = document.getElementById(`${key}Won`);
+            
+            // switch playerInfo / displayWinner 'hide'
+            playerInfo.classList.add('hide');
+            displayWinner.classList.remove('hide');
+
+            displayWinner.textContent = endStates[key];
+            displayWinner.classList.add(`player${key.toUpperCase()}`);
             
             if (key == 'x') {
                 winner.textContent = `X = ${xWon}`;
             } else {
                 winner.textContent = `O = ${oWon}`;
             }
-
+            
             return false;
         } else if (!board.includes('')) {
             tie += 1;
+            playerInfo.classList.add('hide');
+            displayWinner.classList.remove('hide');
+
+            displayWinner.textContent = endStates['tie'];
+            displayWinner.classList.add('tie');
             document.getElementById('tie').textContent = `TIE = ${tie}`;
             return false;
         } else {
@@ -190,22 +222,10 @@ function updateBoard(index, board, currentPlayer) {
 }
 
 // remove the playerX or O class from span
-function changePlayer(playerDisplay, currentPlayer) {
-    playerDisplay.classList.remove(`player${currentPlayer}`);
+function changePlayer(displayCurrentPlayer, currentPlayer) {
+    displayCurrentPlayer.classList.remove(`player${currentPlayer}`);
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    playerDisplay.innerText = currentPlayer;
-    playerDisplay.classList.add(`player${currentPlayer}`);
+    displayCurrentPlayer.innerText = currentPlayer;
+    displayCurrentPlayer.classList.add(`player${currentPlayer}`);
     return currentPlayer;
 }
-
-function announce(announcer, endResult, currentPlayer) {
-    // announcer.textContent = `${endResult}`;
-    // announcer.classList.remove('hide');
-
-    if (endResult == 'Tie') {
-        announcer.classList.add('tie');
-    } else {
-        announcer.classList.add(`player${currentPlayer}`);
-    }
-}
-
